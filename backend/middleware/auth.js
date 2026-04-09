@@ -3,8 +3,18 @@ const path = require('path');
 const pool = require('../db');
 
 // Initialize Firebase Admin SDK
-const serviceAccountPath = process.env.GOOGLE_APPLICATION_CREDENTIALS || './serviceAccountKey.json';
-const serviceAccount = require(path.resolve(serviceAccountPath));
+let serviceAccount;
+if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
+  try {
+    serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+  } catch (error) {
+    console.error('Invalid FIREBASE_SERVICE_ACCOUNT_KEY JSON:', error);
+    throw error;
+  }
+} else {
+  const serviceAccountPath = process.env.GOOGLE_APPLICATION_CREDENTIALS || './serviceAccountKey.json';
+  serviceAccount = require(path.resolve(serviceAccountPath));
+}
 
 if (!admin.apps.length) {
   admin.initializeApp({
