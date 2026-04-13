@@ -13,6 +13,10 @@ TaskBlossom enables authenticated users to:
 
 The app is designed with a modern responsive UI and secure access controls so each user only sees their own tasks.
 
+## 🌐 Live Demo
+
+Check out the live version of TaskBlossom at: [https://task-blossom-user.vercel.app/](https://task-blossom-user.vercel.app/)
+
 ## 🧩 Architecture
 
 ### Frontend
