@@ -27,7 +27,12 @@ export function EditTodoDialog({ todo, open, onOpenChange, onSave }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim()) return;
-    onSave({ title: title.trim(), description: description.trim() || undefined, priority, dueDate: dueDate?.toISOString() });
+    onSave({
+      title: title.trim(),
+      description: description.trim() || undefined,
+      priority,
+      dueDate: dueDate === null ? null : dueDate?.toISOString(),
+    });
   };
 
   return (
@@ -61,7 +66,7 @@ export function EditTodoDialog({ todo, open, onOpenChange, onSave }) {
                 <PopoverTrigger asChild>
                   <Button variant="outline" className={cn("w-full justify-start text-left font-normal", !dueDate && "text-muted-foreground")}>
                     <CalendarIcon className="mr-2 h-4 w-4" />{dueDate ? format(dueDate, "MMM d") : "Pick date"}
-                    {dueDate && <X className="ml-auto h-4 w-4 hover:text-destructive" onClick={(e) => { e.stopPropagation(); setDueDate(undefined); }} />}
+                    {dueDate && <X className="ml-auto h-4 w-4 hover:text-destructive" onClick={(e) => { e.stopPropagation(); setDueDate(null); }} />}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
